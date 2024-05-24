@@ -1,6 +1,6 @@
 import json
 
-from pyflink.common import Types, WatermarkStrategy
+from pyflink.common import WatermarkStrategy
 from pyflink.common.serialization import SimpleStringSchema
 from pyflink.datastream import StreamExecutionEnvironment
 from pyflink.datastream.connectors.kafka import KafkaOffsetsInitializer, KafkaSource
@@ -59,7 +59,7 @@ def main() -> None:
 
     # Create a DataStream from the Kafka source and assign timestamps and watermarks
     data_stream = env.from_source(
-        kafka_source, WatermarkStrategy.for_monotonous_timestamps(), "Kafka Source"
+        kafka_source, WatermarkStrategy.no_watermarks(), "Kafka sensors topic"
     )
 
     # Print line for readablity in the console

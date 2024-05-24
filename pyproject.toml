@@ -6,7 +6,7 @@ authors = ["Augusto de Nevrezé"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.11"
 apache-flink = "1.18"
 kafka-python = "^2.0.2"
 
