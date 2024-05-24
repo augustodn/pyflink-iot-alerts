@@ -54,8 +54,8 @@ This project demonstrates a Kafka producer that generates random sensor data and
 
 2. **Clone the Repository**:
    ```sh
-   git clone <repository_url>
-   cd <repository_directory>
+   git clone https://github.com/augustodn/pyflink-iot-alerts.git
+   cd pyflink-iot-alerts
    ```
 
 
