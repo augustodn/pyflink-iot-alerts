@@ -29,9 +29,12 @@ def main() -> None:
     # Create a StreamExecutionEnvironment
     env = StreamExecutionEnvironment.get_execution_environment()
 
+    # get current directory
+    current_dir = __file__.split("/")[:-1]
+    current_dir = "/".join(current_dir)
     # Adding the jar to my streming environment.
     env.add_jars(
-        "file:///home/augusto/dev/flink/table_api_tutorial/flink-sql-connector-kafka-3.1.0-1.18.jar"
+        f"file://{current_dir}/flink-sql-connector-kafka-3.1.0-1.18.jar"
     )
 
     properties = {
