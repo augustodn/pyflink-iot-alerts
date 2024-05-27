@@ -7,6 +7,7 @@ import uuid
 
 from kafka import KafkaProducer
 
+SLEEP_TIME = 0.1
 
 def generate_sensor_data() -> dict[str, Any]:
     """Generates random sensor data. It also adds a timestamp for traceability."""
@@ -42,7 +43,7 @@ def main() -> None:
         sensor_data = generate_sensor_data()
         producer.send("sensors", value=sensor_data)
         print(f"Produced: {sensor_data}")
-        time.sleep(0.1)
+        time.sleep(SLEEP_TIME)
 
 
 if __name__ == "__main__":

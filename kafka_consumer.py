@@ -29,10 +29,11 @@ def main() -> None:
     # Create a StreamExecutionEnvironment
     env = StreamExecutionEnvironment.get_execution_environment()
 
-    # get current directory
-    current_dir = __file__.split("/")[:-1]
-    current_dir = "/".join(current_dir)
-    # Adding the jar to my streming environment.
+    # Get current directory
+    current_dir_list = __file__.split("/")[:-1]
+    current_dir = "/".join(current_dir_list)
+
+    # Adding the jar to the flink streaming environment
     env.add_jars(
         f"file://{current_dir}/flink-sql-connector-kafka-3.1.0-1.18.jar"
     )
@@ -60,7 +61,7 @@ def main() -> None:
         .build()
     )
 
-    # Create a DataStream from the Kafka source and assign timestamps and watermarks
+    # Create a DataStream from the Kafka source and assign watermarks
     data_stream = env.from_source(
         kafka_source, WatermarkStrategy.no_watermarks(), "Kafka sensors topic"
     )
@@ -68,18 +69,11 @@ def main() -> None:
     # Print line for readablity in the console
     print("start reading data from kafka")
 
-    # Different ways of printing each event
-    # Standard Print
-    # data_stream.print()
-
-    # Print with a unique ID for each event
-    # data_stream.map(lambda x: f"Processed: {x}").print()
-
+    # Filter events with temperature above threshold
     alerts = data_stream.map(parse_and_filter).filter(lambda x: x is not None)
-    alerts.print()
 
-    # Print in a more readable format
-    # data_stream.map(lambda x: f"\n{x}", output_type=Types.STRING()).print()
+    # Show the alerts in the console
+    alerts.print()
 
     # Execute the Flink pipeline
     env.execute("Kafka Sensor Consumer")
