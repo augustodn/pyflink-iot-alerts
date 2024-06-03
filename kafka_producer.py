@@ -7,7 +7,7 @@ import uuid
 
 from kafka import KafkaProducer
 
-SLEEP_TIME = 0.1
+SLEEP_TIME = 0.5
 
 def generate_sensor_data() -> dict[str, Any]:
     """Generates random sensor data. It also adds a timestamp for traceability."""
